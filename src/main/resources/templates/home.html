@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!--  <div th:replace="~{fragments/header :: head}"></div>-->
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<!--
+<div th:replace="~{fragments/header :: header}"></div>
+<div th:replace="~{fragments/nav :: nav}"></div>-->
+<div class="container mt-4">
+    <div class="modern-table-container">
+        <h2>Liste des utilisateurs</h2>
+        <div class="table-responsive">
+            <table class="modern-table">
+                <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:if="${#lists.isEmpty(listUsers)}">
+                    <td colspan="4" class="empty-state">
+                        Aucun utilisateur en base de données
+                    </td>
+                </tr>
+                <tr th:each="user: ${listUsers}">
+                    <td><span th:text="${user.firstname}">Prénom</span></td>
+                    <td><span th:text="${user.lastname}">Nom</span></td>
+                    <td><span th:text="${user.email}">email@example.com</span></td>
+                     <td>
+                         <!--<div class="action-buttons">
+                             <a th:href="@{/updateuser/{idUser}(id=${user.idUser})}" class="btn-modern btn-edit">Modifier</a>
+                             <a th:href="@{/deleteuser/{idUser}(id=${user.idUser})}" class="btn-modern btn-delete">Supprimer</a>
+                         </div>-->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<a th:href="@{/createuser}" class="add-button">➕ Ajouter un utilisateur</a>-->
+    </div>
+</div>
+
+<!--
+<div th:replace="~{fragments/footer :: footer }"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>-->
+</body>
+</html>
