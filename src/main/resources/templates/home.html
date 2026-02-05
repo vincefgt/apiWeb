@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <!--  <div th:replace="~{fragments/header :: head}"></div>-->
-    <link rel="stylesheet" href="/style.css">
+    <div th:replace="~{fragments/header :: head}"></div>
 </head>
 <body>
-<!--
-<div th:replace="~{fragments/header :: header}"></div>
-<div th:replace="~{fragments/nav :: nav}"></div>-->
-<div class="container mt-4">
+<div class="main-container">
     <div class="modern-table-container">
         <h2>Liste des utilisateurs</h2>
         <div class="table-responsive">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+                <a th:attr="data-url=@{/user/}"
+                   th:onclick="|window.location.href=this.getAttribute('data-url')|" onclick="event.stopPropagation()"
+                   style="cursor: pointer; text-decoration: none;" class="btn btn-primary">+ Create User</a>
+            </div>
             <table class="modern-table">
                 <thead>
                 <tr>
+                    <th>Id</th>
                     <th>Prénom</th>
                     <th>Nom</th>
                     <th>Email</th>
@@ -23,30 +25,35 @@
                 </thead>
                 <tbody>
                 <tr th:if="${#lists.isEmpty(listUsers)}">
-                    <td colspan="4" class="empty-state">
-                        Aucun utilisateur en base de données
+                    <td colspan="4" class="empty-state">Aucun utilisateur en base de données
                     </td>
                 </tr>
-                <tr th:each="user: ${listUsers}">
+                <tr th:each="user: ${listUsers}"     th:attr="data-url=@{/user/{id}(id=${user.idUser})}"
+                    th:onclick="|window.location.href=this.getAttribute('data-url')|" onclick="event.stopPropagation()"
+                    style="cursor: pointer;">
+                    <td><span th:text="${user.idUser}">Id</span></td>
                     <td><span th:text="${user.firstname}">Prénom</span></td>
                     <td><span th:text="${user.lastname}">Nom</span></td>
                     <td><span th:text="${user.email}">email@example.com</span></td>
-                     <td>
-                         <!--<div class="action-buttons">
-                             <a th:href="@{/updateuser/{idUser}(id=${user.idUser})}" class="btn-modern btn-edit">Modifier</a>
-                             <a th:href="@{/deleteuser/{idUser}(id=${user.idUser})}" class="btn-modern btn-delete">Supprimer</a>
-                         </div>-->
+                    <td>
+                         <div class="action-buttons" >
+                             <form th:action="@{/deleteuser/{id}(id=${user.idUser})}"
+                                   method="post"
+                                   style="display: inline;"
+                                   onclick="event.stopPropagation()">
+                                 <button type="submit" class="btn-modern btn-delete"
+                                         onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
+                                     Supprimer</button>
+                             </form>
+                         </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <!--<a th:href="@{/createuser}" class="add-button">➕ Ajouter un utilisateur</a>-->
     </div>
 </div>
 
-<!--
 <div th:replace="~{fragments/footer :: footer }"></div>
-<div th:replace="~{fragments/footer :: scripts}"></div>-->
 </body>
 </html>

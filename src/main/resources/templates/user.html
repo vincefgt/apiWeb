@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments/header :: head}"></div>
+</head>
+<body>
+<div class="main-container">
+    <div id="profile-tab" class="profile-section">
+            <h2>Informations personnelles</h2>
+            <form th:action="@{/save}" th:object="${user.idUser}" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="firstname">Prénom<span class="required">*</span></label>
+                        <input type="text" id="firstname" name="firstname"
+                               th:value="${user.firstname}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Nom<span class="required">*</span></label>
+                        <input type="text" id="lastname" name="lastname"
+                               th:value="${user.lastname}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email<span class="required">*</span></label>
+                        <input type="email" id="email" name="email"
+                               th:value="${user.email}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Téléphone<span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone"
+                               th:value="${user.phone}" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="currentPassword">Mot de passe actuel</label>
+                        <input type="password" id="currentPassword" name="currentPassword" required minlength="8">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="newPassword">Nouveau mot de passe (vide = inchangé)</label>
+                        <input type="password" id="newPassword" name="newPassword" placeholder="" minlength="8">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirmer nouveau mot de passe</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" minlength="8">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <a href="/home">
+                        <button type="button" class="btn btn-secondary">Annuler</button>
+                    </a>
+                    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                </div>
+            </form>
+    </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer }"></div>
+</body>
+</html>

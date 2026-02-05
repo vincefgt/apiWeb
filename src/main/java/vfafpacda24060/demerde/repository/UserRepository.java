@@ -24,14 +24,62 @@ public class UserRepository {
         String getUsersURL = baseURL + "/users";
         // construction de la requete HTTP
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Iterable<User>> response = restTemplate.exchange(getUsersURL, HttpMethod.GET, null,
+        ResponseEntity<Iterable<User>> response = restTemplate.exchange(
+                getUsersURL,
+                HttpMethod.GET,
+                null,
                 new ParameterizedTypeReference<>() {
                 }
         );
-
-
         //log.debug("Get Persons call {}", response.getStatusCode());
         // envoi de la réponse.
         return (List<User>) response.getBody();
-    };
+    }
+
+    public User findById(Integer idUser) {
+        String baseURL = customProperty.getApiURL();
+        String getUsersURL = baseURL + "/user/" + idUser;
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<User> response = restTemplate.exchange(
+                getUsersURL,
+                HttpMethod.GET,
+                null,
+                User.class);
+        return response.getBody();
+    }
+
+    public User createUser(User user) {
+        String baseURL = customProperty.getApiURL();
+        String getUsersURL = baseURL + "/user";
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<User> response = restTemplate.exchange(
+                getUsersURL,
+                HttpMethod.POST,
+                null,
+                User.class);
+        return response.getBody();
+    }
+
+    public User updateUser(User user) {
+        String baseURL = customProperty.getApiURL();
+        String getUsersURL = baseURL + "/user/" + user.getIdUser();
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<User> response = restTemplate.exchange(
+                getUsersURL,
+                HttpMethod.PUT,
+                null,
+                User.class);
+        return response.getBody();
+    }
+
+    public void deleteUser(int idUser) {
+        String baseApiUrl = customProperty.getApiURL();
+        String deletePersonUrl = baseApiUrl + "/deleteuser/" + idUser;
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<Void> response = restTemplate.exchange(
+                deletePersonUrl,
+                HttpMethod.DELETE,
+                null,
+                Void.class);
+    }
 }
