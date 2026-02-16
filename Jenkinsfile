@@ -42,6 +42,22 @@ pipeline {
             }
         }
     }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build('vincefgt/web:latest','-f Dockerfile .')
+                }
+            }
+        }
+        stage('Push DOckerImage') {
+            steps {
+                script {
+                    docker.withRegistry('',registryCredential) {
+                        docker.image('vincefgt/web:latest').push()
+                    }
+                }
+            }
+        }
 
     post {
         always {
@@ -52,23 +68,6 @@ pipeline {
                 reportBuildPolicy: 'ALWAYS',
                 results: [('target/allure-results')]
             ])
-        }
-    }
-
-    stage('Build Docker Image') {
-        steps {
-            script {
-                docker.build('vincefgt/web:latest','-f Dockerfile .')
-            }
-        }
-    }
-    stage('Push DOckerImage') {
-        steps {
-            script {
-                docker.withRegistry('',registryCredential) {
-                    docker.image('vincefgt/web:latest').push()
-                }
-            }
         }
     }
 }
