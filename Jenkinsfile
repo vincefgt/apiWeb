@@ -17,24 +17,21 @@ pipeline {
                 }
             }
         }
-stage('SonarCloub') {
-             environment {
-                scannerHome = tool 'sonarScanner8'
-             }
-             steps {
-               withSonarQubeEnv('sonar-server') {
-                  sh '''${scannerHome}/bin/sonar-scanner \
-                      -Dsonar.projectKey=apiWeb \
-                      -Dsonar.projectName=apiWeb \
-                      -Dsonar.projectVersion=1.0 \
-                      -Dsonar.sources=src/ \
-                      -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-                      -Dsonar.junit.reportsPath=target/surefire-reports/ \
-                      -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-                      -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
-                      -Dsonar.organization=Vince.fgt'''
-               }
-             }
+        stage('SonarCloub') {
+              environment {
+                     SONAR_TOKEN = credentials('sonarClod_token')
+                 }
+                 steps {
+                     withSonarQubeEnv('SonarCloud') {
+                         sh '''
+                         mvn clean verify sonar:sonar \
+                           -Dsonar.projectKey=apiWeb \
+                           -Dsonar.organization=Vince-fgt \
+                           -Dsonar.host.url=https://sonarcloud.io \
+                           -Dsonar.login=$SONAR_TOKEN
+                         '''
+                     }
+                 }
         }
         stage('Build Maven') {
             steps {
