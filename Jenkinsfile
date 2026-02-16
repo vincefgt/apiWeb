@@ -20,7 +20,14 @@ pipeline {
         stage('Build Maven') {
             steps {
             withMaven{
-                bat "mvn clean verify sonar:sonar"
+                bat "mvn clean verify"
+                }
+            }
+        }
+        stage('SonarCloud') {
+            steps {
+                withSonarQubeEnv('SonarCloud') {
+                    sh 'mvn sonar:sonar'
                 }
             }
         }
