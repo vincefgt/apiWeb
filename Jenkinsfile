@@ -15,7 +15,9 @@ pipeline {
         }
         stage('Build Maven') {
             steps {
-                powershell 'mvn clean package'
+                withMaven{
+                bat 'mvn clean package'
+                }
             }
         }
     }
