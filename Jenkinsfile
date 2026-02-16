@@ -1,5 +1,8 @@
 pipeline {
  agent any
+ tools {
+    maven 'Maven3'
+}
     stages {
         stage('Clean Worksapce') {
         steps {
@@ -15,9 +18,7 @@ pipeline {
         }
         stage('Build Maven') {
             steps {
-              withMaven {
-                  sh "mvn clean verify"
-              }
+                bat "mvn clean verify"
             }
         }
     }
