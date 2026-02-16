@@ -47,8 +47,24 @@ pipeline {
                 bat 'mvn allure:report'
             }
         }
-    }
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build('vincefgt/web:latest','-f Dockerfile .')
+                }
+            }
+        }
+        stage('Push DOckerImage') {
+            steps {
+                script {
+                    docker.withRegistry('',registryCredential) {
+                        docker.image('vincefgt/web:latest').push()
+                    }
+                }
+            }
+        }
 
+    }
 
     post {
         always {
