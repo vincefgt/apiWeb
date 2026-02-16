@@ -11,8 +11,8 @@
     <groupId>vf_afpa_cda24060_2</groupId>
     <artifactId>web</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>deMerde</name>
-    <description>deMerde</description>
+    <name>web</name>
+    <description>web</description>
     <url/>
     <licenses>
         <license/>
