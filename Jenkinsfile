@@ -23,7 +23,7 @@ pipeline {
                  }
                  steps {
                      withSonarQubeEnv('SonarCloud') {
-                         sh '''
+                         bat '''
                          mvn clean verify sonar:sonar \
                            -Dsonar.projectKey=apiWeb \
                            -Dsonar.organization=Vince-fgt \
