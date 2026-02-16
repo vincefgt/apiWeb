@@ -25,12 +25,18 @@ pipeline {
             }
         }
         stage('SonarCloud') {
-        steps {
-        withSonarQubeEnv('Sonar-server') {
-            bat 'mvn sonar:sonar'
+            steps {
+                withSonarQubeEnv('Sonar-server') {
+                    bat 'mvn sonar:sonar'
+                }
+            }
         }
-    }
+        stage('Quality Gate') {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
         }
+
         stage('Allure-Report') {
             steps {
                 allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-results']]
@@ -42,22 +48,6 @@ pipeline {
             }
         }
     }
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    docker.build('vincefgt/web:latest','-f Dockerfile .')
-                }
-            }
-        }
-        stage('Push DockerImage') {
-            steps {
-                script {
-                    docker.withRegistry('',registryCredential) {
-                        docker.image('vincefgt/web:latest').push()
-                    }
-                }
-            }
-        }
 
     post {
         always {
@@ -68,6 +58,23 @@ pipeline {
                 reportBuildPolicy: 'ALWAYS',
                 results: [('target/allure-results')]
             ])
+        }
+    }
+
+    stage('Build Docker Image') {
+        steps {
+            script {
+                docker.build('vincefgt/web:latest','-f Dockerfile .')
+            }
+        }
+    }
+    stage('Push DOckerImage') {
+        steps {
+            script {
+                docker.withRegistry('docker',registryCredential) {
+                    docker.image('vincefgt/web:latest').push()
+                }
+            }
         }
     }
 }
