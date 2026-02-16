@@ -25,11 +25,11 @@ pipeline {
             }
         }
         stage('SonarCloud') {
-            steps {
-                withSonarQubeEnv('SonarCloud') {
-                    bat 'mvn sonar:sonar'
-                }
-            }
+        steps {
+        withSonarQubeEnv('SonarCloud') {
+            bat 'mvn sonar:sonar'
+        }
+    }
         }
         stage('Allure-Report') {
             steps {
