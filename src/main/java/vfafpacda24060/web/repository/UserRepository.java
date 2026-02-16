@@ -1,13 +1,12 @@
-package vfafpacda24060.demerde.repository;
-import lombok.extern.slf4j.Slf4j;
+package vfafpacda24060.web.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
-import vfafpacda24060.demerde.config.CustomProperty;
-import vfafpacda24060.demerde.model.User;
+import vfafpacda24060.web.config.CustomProperty;
+import vfafpacda24060.web.model.User;
 
 import java.util.List;
 

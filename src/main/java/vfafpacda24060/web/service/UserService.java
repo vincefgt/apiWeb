@@ -1,11 +1,11 @@
-package vfafpacda24060.demerde.service;
+package vfafpacda24060.web.service;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import vfafpacda24060.demerde.Utility.PasswordUtil;
-import vfafpacda24060.demerde.model.User;
-import vfafpacda24060.demerde.repository.UserRepository;
+import vfafpacda24060.web.Utility.PasswordUtil;
+import vfafpacda24060.web.model.User;
+import vfafpacda24060.web.repository.UserRepository;
 
 @Data
 @Service

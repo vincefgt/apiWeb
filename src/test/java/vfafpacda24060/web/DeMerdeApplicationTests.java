@@ -1,4 +1,4 @@
-package vfafpacda24060.demerde;
+package vfafpacda24060.web;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

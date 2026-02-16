@@ -1,4 +1,4 @@
-package vfafpacda24060.demerde.model;
+package vfafpacda24060.web.model;
 
 import lombok.Data;
 

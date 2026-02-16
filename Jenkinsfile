@@ -24,5 +24,27 @@ pipeline {
                 }
             }
         }
+        stage('Allure-Report') {
+            steps {
+                allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-results']]
+            }
+        }
+        stage('Generate Allure Report'){
+            steps {
+                bat 'mvn allure:report'
+            }
+        }
+    }
+
+    post {
+        always {
+            allure ([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [('target/allure-results')]
+            ])
+        }
     }
 }

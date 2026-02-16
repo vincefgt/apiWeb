@@ -1,4 +1,4 @@
-package vfafpacda24060.demerde.Utility;
+package vfafpacda24060.web.Utility;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

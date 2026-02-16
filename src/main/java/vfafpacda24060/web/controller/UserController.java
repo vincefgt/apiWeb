@@ -1,14 +1,12 @@
-package vfafpacda24060.demerde.controller;
+package vfafpacda24060.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import vfafpacda24060.demerde.model.User;
-import vfafpacda24060.demerde.service.UserService;
-
-import java.sql.SQLException;
+import vfafpacda24060.web.model.User;
+import vfafpacda24060.web.service.UserService;
 
 @Controller
 public class UserController {

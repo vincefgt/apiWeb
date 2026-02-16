@@ -1,4 +1,4 @@
-package vfafpacda24060.demerde;
+package vfafpacda24060.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

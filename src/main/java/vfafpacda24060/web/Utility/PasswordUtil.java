@@ -1,4 +1,4 @@
-package vfafpacda24060.demerde.Utility;
+package vfafpacda24060.web.Utility;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;

@@ -1,4 +1,4 @@
-package vfafpacda24060.demerde.config;
+package vfafpacda24060.web.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
