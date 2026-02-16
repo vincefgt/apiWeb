@@ -17,17 +17,10 @@ pipeline {
                 }
             }
         }
-        stage('SonarCloub') {
-          steps {
-              withSonarQubeEnv('SonarCloud') {
-                  bat 'mvn clean verify sonar:sonar'
-              }
-          }
-        }
         stage('Build Maven') {
             steps {
             withMaven{
-                bat "mvn clean verify"
+                bat "mvn clean verify sonar:sonar"
                 }
             }
         }
