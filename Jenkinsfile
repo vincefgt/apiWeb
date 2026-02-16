@@ -18,20 +18,11 @@ pipeline {
             }
         }
         stage('SonarCloub') {
-              environment {
-                     SONAR_TOKEN = credentials('sonarClod_token')
-                 }
-                 steps {
-                     withSonarQubeEnv('SonarCloud') {
-                         bat '''
-                         mvn clean verify sonar:sonar \
-                           -Dsonar.projectKey=apiWeb \
-                           -Dsonar.organization=Vince-fgt \
-                           -Dsonar.host.url=https://sonarcloud.io \
-                           -Dsonar.login=$SONAR_TOKEN
-                         '''
-                     }
-                 }
+          steps {
+              withSonarQubeEnv('SonarCloud') {
+                  bat 'mvn clean verify sonar:sonar'
+              }
+          }
         }
         stage('Build Maven') {
             steps {
