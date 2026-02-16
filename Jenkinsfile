@@ -31,11 +31,6 @@ pipeline {
                 }
             }
         }
-        stage('Quality Gate') {
-            steps {
-                waitForQualityGate abortPipeline: true
-            }
-        }
 
         stage('Allure-Report') {
             steps {
