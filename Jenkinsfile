@@ -15,9 +15,9 @@ pipeline {
         }
         stage('Build Maven') {
             steps {
-                withMaven{
-                bat 'mvn clean package'
-                }
+              withMaven {
+                  sh "mvn clean verify"
+              }
             }
         }
     }
