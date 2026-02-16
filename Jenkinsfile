@@ -17,7 +17,25 @@ pipeline {
                 }
             }
         }
-
+stage('SonarCloub') {
+             environment {
+                scannerHome = tool 'sonarScanner8'
+             }
+             steps {
+               withSonarQubeEnv('sonar-server') {
+                  sh '''${scannerHome}/bin/sonar-scanner \
+                      -Dsonar.projectKey=apiWeb \
+                      -Dsonar.projectName=apiWeb \
+                      -Dsonar.projectVersion=1.0 \
+                      -Dsonar.sources=src/ \
+                      -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
+                      -Dsonar.junit.reportsPath=target/surefire-reports/ \
+                      -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+                      -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml \
+                      -Dsonar.organization=Vince.fgt'''
+               }
+             }
+        }
         stage('Build Maven') {
             steps {
             withMaven{
@@ -49,4 +67,3 @@ pipeline {
         }
     }
 }
-#98527144ab3414bf72c3c341b4b055e412389d2c
