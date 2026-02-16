@@ -34,15 +34,6 @@
         <sonar.projectKey>vincefgt_apiWeb</sonar.projectKey>
         <sonar.projectName>apiWeb</sonar.projectName>
 
-<!--        &lt;!&ndash; Code coverage &ndash;&gt;-->
-<!--        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>-->
-<!--        <sonar.coverage.jacoco.xmlReportPaths>-->
-<!--            ${project.build.directory}/site/jacoco/jacoco.xml-->
-<!--        </sonar.coverage.jacoco.xmlReportPaths>-->
-
-<!--        &lt;!&ndash; Source encoding &ndash;&gt;-->
-<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
-<!--        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>-->
     </properties>
     <dependencies>
         <dependency>
@@ -128,27 +119,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-<!--            &lt;!&ndash; JaCoCo plugin for code coverage &ndash;&gt;-->
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <version>0.8.11</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>prepare-agent</id>-->
-<!--                        <goals>-->
-<!--                            <goal>prepare-agent</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>report</id>-->
-<!--                        <phase>test</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>report</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
         </plugins>
     </build>
 </project>
