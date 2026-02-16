@@ -49,7 +49,7 @@ pipeline {
                 }
             }
         }
-        stage('Push DOckerImage') {
+        stage('Push DockerImage') {
             steps {
                 script {
                     docker.withRegistry('',registryCredential) {
