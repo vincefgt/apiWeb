@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Build Maven') {
             steps {
-            withMaven{
+            withMaven(maven: 'Maven3'){
                 bat "mvn clean verify"
                 }
             }
@@ -48,19 +48,6 @@ pipeline {
             }
         }
     }
-
-    post {
-        always {
-            allure ([
-                includeProperties: false,
-                jdk: '',
-                properties: [],
-                reportBuildPolicy: 'ALWAYS',
-                results: [('target/allure-results')]
-            ])
-        }
-    }
-
     stage('Build Docker Image') {
         steps {
             script {
@@ -71,10 +58,22 @@ pipeline {
     stage('Push DOckerImage') {
         steps {
             script {
-                docker.withRegistry('docker',registryCredential) {
+                docker.withRegistry('',registryCredential) {
                     docker.image('vincefgt/web:latest').push()
                 }
             }
+        }
+    }
+
+    post {
+        always {
+            allure ([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [('target/allure-results')]
+            ])
         }
     }
 }
