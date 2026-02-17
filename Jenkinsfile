@@ -1,5 +1,8 @@
 pipeline {
  agent any
+ environment {
+     registryCredential = 'DOCKERHUB_TOKEN' // Jenkins credential ID
+ }
  tools {
   maven 'Maven3'
   jdk 'JDK21'
