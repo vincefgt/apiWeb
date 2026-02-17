@@ -34,7 +34,6 @@ pipeline {
                 }
             }
         }
-
         stage('Allure-Report') {
             steps {
                 allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-results']]
@@ -61,7 +60,13 @@ pipeline {
                 }
             }
         }
-
+        stage('Deploy docker-compose'){
+            steps {
+                script {
+                    bat 'docker-compose up -d --build --force-recreate --remove-orphans'
+                }
+            }
+        }
     }
 
     post {
