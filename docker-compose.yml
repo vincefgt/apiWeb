@@ -35,7 +35,7 @@ services:
       - spring-network
 
   db:
-    image: vincefgt/bdd
+    image: vincefgt/bdd:latest
     container_name: bdd_container
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -70,7 +70,7 @@ services:
       - spring-network
 
 volumes:
-  db-data: ./infra/data_volume
+  db-data:
 
 networks:
   spring-network:
