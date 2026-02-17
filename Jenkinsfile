@@ -20,11 +20,6 @@ pipeline {
                 }
             }
         }
-        stage('Allure-Report') {
-            steps {
-                allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-results']]
-            }
-        }
         stage('Generate Allure Report'){
             steps {
                 bat 'mvn allure:report'
