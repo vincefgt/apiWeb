@@ -3,69 +3,69 @@ services:
     image: vincefgt/apiimage:latest
     container_name: springboot-api
     ports:
-      - "${API_HOST_PORT}:${API_CONTAINER_PORT}"
+      - "8090:8010"
+    restart: always
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:${DB_CONTAINER_PORT}/${DB_NAME}
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/bed_pizza
       - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=${DB_ROOT_PASSWORD}
+      - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
       db:
         condition: service_healthy
     networks:
       - spring-network
-    restart: always
 
   web:
     image: vincefgt/web:latest
     container_name: springboot-web
     ports:
-      - "${WEB_HOST_PORT}:${WEB_CONTAINER_PORT}"
+      - "8085:8020"
+    restart: always
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - API_URL=http://api:${API_CONTAINER_PORT}
+      - API_URL=http://api:8010
       - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=${DB_ROOT_PASSWORD}
+      - SPRING_DATASOURCE_PASSWORD=root
     depends_on:
       - api
     networks:
       - spring-network
-    restart: always
 
   db:
     image: vincefgt/bdd:latest
     container_name: bdd_container
-    ports:
-      - "${DB_HOST_PORT}:${DB_CONTAINER_PORT}"
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bed_pizza
+    ports:
+      - "3307:3306"  
+    restart: always
     volumes:
-      - db-data:/var/lib/mysql
+      - db-data:/var/lib/mysql 
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_ROOT_PASSWORD}"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       interval: 10s
       timeout: 5s
       retries: 5
     networks:
       - spring-network
-    restart: always
 
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: phpmyadmin
-    ports:
-      - "${PMA_HOST_PORT}:80"
+    restart: always
     environment:
       PMA_HOST: db
-      PMA_PORT: ${DB_CONTAINER_PORT}
+      PMA_PORT: 3306 
       PMA_USER: root
-      PMA_PASSWORD: ${DB_ROOT_PASSWORD}
+      PMA_PASSWORD: root
+    ports:
+      - "8081:80"
     depends_on:
       - db
     networks:
       - spring-network
-    restart: always
 
 volumes:
   db-data:
