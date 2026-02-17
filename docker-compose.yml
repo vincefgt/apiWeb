@@ -3,7 +3,7 @@ services:
     image: vincefgt/apiimage:latest
     container_name: springboot-api
     ports:
-      - "8080:8010"
+      - "8090:8010"
     restart: always
     environment:
       - SPRING_PROFILES_ACTIVE=docker
