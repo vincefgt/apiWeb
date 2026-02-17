@@ -35,7 +35,7 @@ services:
       - spring-network
 
   db:
-    image: mysql:8.0
+    image: vincefgt/bdd
     container_name: bdd_container
     environment:
       MYSQL_ROOT_PASSWORD: root
@@ -45,7 +45,6 @@ services:
     restart: always
     volumes:
       - db-data:/var/lib/mysql 
-      - ./BDD/databaseDump.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
       interval: 10s
@@ -69,6 +68,9 @@ services:
       - db
     networks:
       - spring-network
+
+volumes:
+  db-data: ./infra/data_volume
 
 networks:
   spring-network:
