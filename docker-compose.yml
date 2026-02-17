@@ -70,9 +70,6 @@ services:
     networks:
       - spring-network
 
-volumes:
-  driver: local
-
 networks:
   spring-network:
     driver: bridge
