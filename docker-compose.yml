@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  api:
+    image: vincefgt/apiimage:latest
+    container_name: springboot-api
+    ports:
+      - "8080:8010"
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/bed_pizza
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - spring-network
+
+  web:
+    image: vincefgt/web:latest
+    container_name: springboot-web
+    ports:
+      - "8085:8020"
+    restart: always
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - API_URL=http://api:8010
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+    depends_on:
+      - api
+    networks:
+      - spring-network
+
+  db:
+    image: mysql:8.0
+    container_name: bdd_container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: bed_pizza
+    ports:
+      - "3307:3306"  
+    restart: always
+    volumes:
+      - db-data:/var/lib/mysql 
+      - ./BDD/databaseDump.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - spring-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306 
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+    networks:
+      - spring-network
+
+volumes:
+  driver: local
+
+networks:
+  spring-network:
+    driver: bridge
